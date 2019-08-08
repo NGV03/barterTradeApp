@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "490204706567",
-    "firebase_url": "https://fir-a8a8d.firebaseio.com",
-    "project_id": "fir-a8a8d",
-    "storage_bucket": "fir-a8a8d.appspot.com"
+    "project_number": "470712312723",
+    "firebase_url": "https://mata-36a38.firebaseio.com",
+    "project_id": "mata-36a38",
+    "storage_bucket": "mata-36a38.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:490204706567:android:d4a7aa43dfc5f42e",
+        "mobilesdk_app_id": "1:470712312723:android:d4a7aa43dfc5f42e",
         "android_client_info": {
           "package_name": "com.example.bartertrade"
         }
       },
       "oauth_client": [
         {
-          "client_id": "490204706567-87f98tgbrsj93mjc5dl4k2f4f338500v.apps.googleusercontent.com",
+          "client_id": "470712312723-bj3pi9l0032p6in3sgm4qu2qpke0pngf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bartertrade",
+            "certificate_hash": "598b66b49bdb479d07346fbfca9867b94c81844b"
+          }
+        },
+        {
+          "client_id": "470712312723-dk2p5qn8ng64nf2dpvfm2q7doifokbbu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA5B_UrSjNx-F4x7Tnkx0G4RiKEgB2NZDE"
+          "current_key": "AIzaSyA88r7WSXFrwIfTvp2B1wSEfbfBDOMoNeY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "490204706567-87f98tgbrsj93mjc5dl4k2f4f338500v.apps.googleusercontent.com",
+              "client_id": "470712312723-dk2p5qn8ng64nf2dpvfm2q7doifokbbu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
