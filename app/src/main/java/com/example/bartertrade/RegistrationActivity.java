@@ -16,45 +16,54 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Login extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
 
     private EditText txtEmail;
     private EditText txtPassword;
-    private FirebaseAuth firebaseAuth;
+    private EditText txtName;
+    private EditText txtPhone;
     private ProgressBar viewProgressBar;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
+        setContentView(R.layout.activity_registration);
+        txtName = findViewById(R.id.et1);
         txtEmail = findViewById(R.id.et2);
+        txtPhone = findViewById(R.id.et3);
         txtPassword = findViewById(R.id.et4);
-        firebaseAuth = FirebaseAuth.getInstance();
         viewProgressBar = findViewById(R.id.progressBar1);
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        viewProgressBar.setVisibility(View.INVISIBLE);
     }
-    public void btnUserLogin(View v){
 
+    public void btnRegistrationUser_Click(View v) {
 
-        (firebaseAuth.signInWithEmailAndPassword(txtEmail.getText().toString(), txtPassword.getText().toString()))
+        viewProgressBar.setVisibility(View.VISIBLE);
+        (firebaseAuth.createUserWithEmailAndPassword(txtEmail.getText().toString(), txtPassword.getText().toString()))
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
+                        viewProgressBar.setVisibility(View.INVISIBLE);
+
                         if(task.isSuccessful()){
-                            Toast.makeText(Login.this, "Login successful", Toast.LENGTH_LONG).show();
-                            Intent i = new Intent(Login.this, Home.class);
+                            Toast.makeText(RegistrationActivity.this, "RegistrationActivity successful", Toast.LENGTH_LONG).show();
+                            Intent i = new Intent (RegistrationActivity.this, LoginActivity.class);
                             startActivity(i);
-                        }else{
+                        }
+                        else{
                             Log.e("ERROR", task.getException().toString());
-                            Toast.makeText(Login.this, task.getException().getMessage() , Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegistrationActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
     }
-    public void btnUserRegister (View view){
-        Intent i = new Intent(Login.this, Registration.class);
+
+    public void btnUserLogin(View view) {
+        Intent i = new Intent(RegistrationActivity.this, LoginActivity.class);
         startActivity(i);
     }
-
 }

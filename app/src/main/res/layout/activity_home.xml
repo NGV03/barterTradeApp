@@ -1,15 +1,270 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome to home page"
-        android:textSize="20dp"
-        android:layout_margin="10dp"/>
+    android:fillViewport="true">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home"
+    android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/logoround" />
+
+        <LinearLayout
+            android:layout_width="260dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:background="#E8E8E8">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:src="@drawable/search" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Search Mata"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            android:layout_marginVertical="14dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/filter" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:weightSum="4"
+            android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/iv_1"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:src="@drawable/car"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/iv_2"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:src="@drawable/furnituretwo"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/iv_3"
+            android:layout_width="100dp"
+            android:layout_marginTop="14dp"
+            android:layout_height="50dp"
+            android:src="@drawable/phone"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/iv_4"
+            android:layout_width="90dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/shoe"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="4"
+        android:layout_marginLeft="25dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Vehicles"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Furniture"
+            android:textSize="18dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Electronics"
+            android:textSize="18dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Clothing"
+            android:textSize="18dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:background="@drawable/swap2"
+        android:gravity="bottom|center_horizontal"
+        android:layout_marginTop="10dp">
+
+        <Button
+            android:id="@+id/btn_post"
+            android:onClick="btn_postAd"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#1cdbcb"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Post an Ad"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:layout_marginBottom="10dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/cartwo" />
+
+        <ImageView
+            android:src="@drawable/furniture"
+            android:id="@+id/iv_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:weightSum="2">
+
+        <ImageView
+            android:id="@+id/iv_7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/mobilephone" />
+
+        <ImageView
+            android:src="@drawable/clothing"
+            android:id="@+id/iv_8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:weightSum="4">
+
+        <ImageView
+            android:id="@+id/iv_9"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:src="@drawable/home"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:clickable="true"
+            android:onClick="btn_postAd"
+            android:id="@+id/iv_10"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:src="@drawable/add"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/iv_11"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="14dp"
+            android:layout_weight="1"
+            android:src="@drawable/bell" />
+
+        <ImageView
+            android:id="@+id/iv_12"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/profile"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="4"
+        android:layout_marginLeft="25dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Browse"
+            android:textSize="18dp" />
+
+        <TextView
+            android:clickable="true"
+            android:onClick="btn_postAd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Add Post"
+            android:textSize="18dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Notifications"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="15dp"
+            android:text="Profile"
+            android:textSize="18dp" />
+
+    </LinearLayout>
 </LinearLayout>
+</ScrollView>
+
