@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -125,9 +126,9 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         String eShortDesc = shortDesc.getText().toString();
         String eLocation = location.getText().toString();
         data.put("Img", "12345");
-        data.put("Title", "title");
-        data.put("Location", "Auckland");
-        data.put("Short Description", "Test data");
+        data.put("Title", eTitle);
+        data.put("Location", eLocation);
+        data.put("Short Description", eShortDesc);
         db.collection("Item").add(data);
     }
 
