@@ -50,7 +50,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_upload);
 
         db = FirebaseFirestore.getInstance();
-        saveData();
 
         //initializing Storagereference
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -117,6 +116,14 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
     }
+
+    public void goHome(View view) {
+        Intent goHome = new Intent(this, Home.class);
+        saveData();
+        startActivity(goHome);
+        finish();
+    }
+
     private void saveData() {
         Map<String, String> data = new HashMap<>();
         EditText title = findViewById(R.id.etv_1);
@@ -130,6 +137,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         data.put("Location", eLocation);
         data.put("Short Description", eShortDesc);
         db.collection("Item").add(data);
+        Toast.makeText(this, "Successfully saved your item", Toast.LENGTH_SHORT).show();
     }
 
 
