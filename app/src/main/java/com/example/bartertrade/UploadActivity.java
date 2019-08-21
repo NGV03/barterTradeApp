@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -41,7 +42,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     public FirebaseFirestore db;
     private StorageReference mStorageRef;
     private static final int PICK_IMAGE_REQUEST = 1;
-    public Uri imguri;
+    private Uri imguri;
+    private String cate;
     private  String userid;
     private Button btnSave, btnUpload;
     private ImageView imageView;
@@ -120,13 +122,24 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-//    public void goHome(View view) {
-//        Intent goHome = new Intent(this, Home.class);
-//        saveData();
-//        startActivity(goHome);
-//        finish();
-//    }
 
+    private void getCate(){
+        RadioButton vehicles = findViewById(R.id.vehicles);
+        RadioButton furniture = findViewById(R.id.furniture);
+        RadioButton electronics = findViewById(R.id.electronics);
+        RadioButton clothing = findViewById(R.id.clothing);
+        if (vehicles.isChecked()){
+            cate = "Vehicles";
+        }else if (furniture.isChecked()){
+            cate = "Furniture";
+        }else if (electronics.isChecked()){
+            cate = "Electronics";
+        }else if (clothing.isChecked()){
+            cate = "Clothing";
+        }else {
+            Toast.makeText(this, "Please select a category", Toast.LENGTH_SHORT).show();
+        }
+    }
     private void saveData(Uri imguri) {
         Map<String, String> data = new HashMap<>();
         EditText title = findViewById(R.id.etv_1);
@@ -137,10 +150,12 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         String eLocation = location.getText().toString();
         String eUrl = imguri.toString();
         userid = FirebaseAuth.getInstance().getUid();
+        getCate();
         data.put("Img", eUrl);
         data.put("Title", eTitle);
         data.put("Location", eLocation);
         data.put("Short Description", eShortDesc);
+        data.put("Category", cate);
         data.put("id", userid);
         db.collection("Item").add(data);
         Toast.makeText(this, "Successfully saved your item", Toast.LENGTH_SHORT).show();
