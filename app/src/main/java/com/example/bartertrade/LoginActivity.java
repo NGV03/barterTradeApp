@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         txtEmail = findViewById(R.id.et2);
         txtPassword = findViewById(R.id.et4);
         firebaseAuth = FirebaseAuth.getInstance();
-        viewProgressBar = findViewById(R.id.progressBar1);
+
     }
     public void btnUserLogin(View v){
 
