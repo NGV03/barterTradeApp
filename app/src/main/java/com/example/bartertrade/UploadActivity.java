@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.core.UserWriteRecord;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -40,6 +42,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private StorageReference mStorageRef;
     private static final int PICK_IMAGE_REQUEST = 1;
     public Uri imguri;
+    private  String userid;
     private Button btnSave, btnUpload;
     private ImageView imageView;
 
@@ -133,10 +136,12 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         String eShortDesc = shortDesc.getText().toString();
         String eLocation = location.getText().toString();
         String eUrl = imguri.toString();
+        userid = FirebaseAuth.getInstance().getUid();
         data.put("Img", eUrl);
         data.put("Title", eTitle);
         data.put("Location", eLocation);
         data.put("Short Description", eShortDesc);
+        data.put("id", userid);
         db.collection("Item").add(data);
         Toast.makeText(this, "Successfully saved your item", Toast.LENGTH_SHORT).show();
     }
