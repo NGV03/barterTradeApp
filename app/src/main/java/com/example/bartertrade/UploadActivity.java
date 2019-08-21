@@ -74,7 +74,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private  void Fileuploader(){
-
         if(imguri != null ) {
             StorageReference ref = mStorageRef.child("Item/item.jpg");
             Toast.makeText(UploadActivity.this, "Upload in progress", Toast.LENGTH_LONG).show();
@@ -93,6 +92,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                         }
                     });
         }
+        saveData(imguri);
     }
 
     private void Filechooser(){
@@ -117,14 +117,14 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    public void goHome(View view) {
-        Intent goHome = new Intent(this, Home.class);
-        saveData();
-        startActivity(goHome);
-        finish();
-    }
+//    public void goHome(View view) {
+//        Intent goHome = new Intent(this, Home.class);
+//        saveData();
+//        startActivity(goHome);
+//        finish();
+//    }
 
-    private void saveData() {
+    private void saveData(Uri imguri) {
         Map<String, String> data = new HashMap<>();
         EditText title = findViewById(R.id.etv_1);
         EditText shortDesc = findViewById(R.id.etv_2);
@@ -132,7 +132,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         String eTitle = title.getText().toString();
         String eShortDesc = shortDesc.getText().toString();
         String eLocation = location.getText().toString();
-        data.put("Img", "12345");
+        String eUrl = imguri.toString();
+        data.put("Img", eUrl);
         data.put("Title", eTitle);
         data.put("Location", eLocation);
         data.put("Short Description", eShortDesc);
