@@ -155,7 +155,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         data.put("Title", eTitle);
         data.put("Location", eLocation);
         data.put("Short Description", eShortDesc);
-        data.put("Category", cate);
+        data.put("Category", cate   );
         data.put("id", userid);
         db.collection("Item").add(data);
         Toast.makeText(this, "Successfully saved your item", Toast.LENGTH_SHORT).show();

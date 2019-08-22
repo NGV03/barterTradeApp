@@ -17,4 +17,8 @@ public class Home extends AppCompatActivity {
         Intent i = new Intent(Home.this, UploadActivity.class);
         startActivity(i);
     }
+    public void goSearch(View view) {
+        Intent i = new Intent(Home.this, searchActivity.class);
+        startActivity(i);
+    }
 }

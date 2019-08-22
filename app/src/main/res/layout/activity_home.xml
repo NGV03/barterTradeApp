@@ -27,6 +27,7 @@
             android:background="#E8E8E8">
 
             <ImageView
+                android:onClick="goSearch"
                 android:layout_width="40dp"
                 android:layout_height="50dp"
                 android:src="@drawable/search" />
