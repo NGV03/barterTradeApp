@@ -50,19 +50,19 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         viewHolder.title.setText(mTitle.get(i));
         viewHolder.desc.setText(mDesc.get(i));
-//        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d(TAG, "onClick: clicked on: " + mTitle.get(i));
-//                Toast.makeText(Context, mTitle.get(i), Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(Context, .class);
-//                intent.putExtra("image_url", mImage.get(i));
-//                intent.putExtra("image_title", mTitle.get(i));
-//                intent.putExtra("image_desc", mDesc.get(i));
-//                Context.startActivity(intent);
-//            }
-//        });
-//
+        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: clicked on: " + mTitle.get(i));
+                Toast.makeText(context, mTitle.get(i), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, DeatiledItemActivity.class);
+                intent.putExtra("image_url", mImage.get(i));
+                intent.putExtra("image_title", mTitle.get(i));
+                intent.putExtra("image_desc", mDesc.get(i));
+                context.startActivity(intent);
+            }
+        });
+
    }
 
     @Override
