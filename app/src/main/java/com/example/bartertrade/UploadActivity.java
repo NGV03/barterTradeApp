@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
@@ -92,8 +93,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         placesFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
-                Toast.makeText(UploadActivity.this, ""+ place.getAddress(),Toast.LENGTH_LONG).show();
-                final EditText location = findViewById(R.id.etv_3);
+                final TextView location = findViewById(R.id.etv_3);
                 location.setText(place.getAddress());
             }
 
@@ -188,7 +188,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         Map<String, String> data = new HashMap<>();
         EditText title = findViewById(R.id.etv_1);
         EditText shortDesc = findViewById(R.id.etv_2);
-        EditText location = findViewById(R.id.etv_3);
+        TextView location = findViewById(R.id.etv_3);
         String eTitle = title.getText().toString();
         String eShortDesc = shortDesc.getText().toString();
         String eLocation = location.getText().toString();
@@ -203,6 +203,9 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         data.put("id", userid);
         db.collection("Item").add(data);
         Toast.makeText(this, "Successfully saved your item", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, Home.class);
+        startActivity(i);
+
     }
 
 
