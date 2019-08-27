@@ -21,9 +21,15 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.core.UserWriteRecord;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,7 +40,9 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.sql.Ref;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UploadActivity extends AppCompatActivity implements View.OnClickListener {
@@ -47,6 +55,9 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private  String userid;
     private Button btnSave, btnUpload;
     private ImageView imageView;
+    PlacesClient placesClient;
+    List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.ADDRESS);
+    AutocompleteSupportFragment placesFragment;
 
 
     @Override
@@ -62,8 +73,41 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         btnUpload = (Button) findViewById(R.id.button_upload);
         imageView = (ImageView) findViewById(R.id.iv_1);
 
+
+
         btnSave.setOnClickListener(this);
         btnUpload.setOnClickListener(this);
+
+        initPlaces();
+        setupPlaceAutoComplete();
+
+
+
+    }
+
+    private void setupPlaceAutoComplete() {
+        placesFragment = (AutocompleteSupportFragment)getSupportFragmentManager()
+            .findFragmentById(R.id.autocomplete_fragment);
+        placesFragment.setPlaceFields(placeFields);
+        placesFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+                Toast.makeText(UploadActivity.this, ""+ place.getAddress(),Toast.LENGTH_LONG).show();
+                final EditText location = findViewById(R.id.etv_3);
+                location.setText(place.getAddress());
+            }
+
+            @Override
+            public void onError(@NonNull Status status) {
+                Toast.makeText(UploadActivity.this, ""+ status.getStatusMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void initPlaces() {
+        Places.initialize(this, getString(R.string.places_api_key));
+        placesClient = Places.createClient(this);
     }
 
     @Override

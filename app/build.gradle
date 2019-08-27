@@ -37,6 +37,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:19.0.2'
     // recyclerview
     implementation 'com.android.support:recyclerview-v7:28.0.0'
+    //places api
+    implementation 'com.google.android.libraries.places:places:1.0.0'
+    implementation 'com.karumi:dexter:5.0.0'
 
 }
 
