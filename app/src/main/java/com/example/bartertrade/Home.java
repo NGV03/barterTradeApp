@@ -52,7 +52,7 @@ public class Home extends AppCompatActivity  {
         startActivity(i);
     }
     public void goSearch(View view) {
-        Intent i = new Intent(Home.this, searchActivity.class);
+        Intent i = new Intent(Home.this, ListActivity.class);
         startActivity(i);
     }
 }

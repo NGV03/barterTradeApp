@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    tools:context=".ListActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <SearchView
+    <EditText
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,13 +17,12 @@
         android:background="#E8E8E8"
         android:queryHint="Search"/>
 
+
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/resultRecycle"
-        android:layout_below="@+id/searchView"
-        >
+        android:layout_below="@+id/searchView" />
 
-    </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>
 </ScrollView>
