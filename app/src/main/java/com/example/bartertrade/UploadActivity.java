@@ -43,6 +43,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.sql.Ref;
@@ -66,6 +67,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.ADDRESS);
     AutocompleteSupportFragment placesFragment;
 
+
     //notification
     NotificationCompat.Builder notification;
     private static final int uniqueID  = 12345;
@@ -78,7 +80,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         db = FirebaseFirestore.getInstance();
 
         //initializing Storagereference
-        mStorageRef = FirebaseStorage.getInstance().getReference();
+        mStorageRef = FirebaseStorage.getInstance().getReference("Uploads");
+
         btnSave = (Button) findViewById(R.id.button_save);
         btnUpload = (Button) findViewById(R.id.button_upload);
         imageView = (ImageView) findViewById(R.id.iv_1);
@@ -148,9 +151,17 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    //to get image file extension
+    private String getFileExtension(Uri uri){
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(uri));
+    }
+
     private  void Fileuploader(){
         if(imguri != null ) {
-            StorageReference ref = mStorageRef.child("Item");
+
+            StorageReference ref = mStorageRef.child(System.currentTimeMillis()+ "." +getFileExtension(imguri));
             Toast.makeText(UploadActivity.this, "Upload in progress", Toast.LENGTH_LONG).show();
 
             ref.putFile(imguri)
@@ -170,6 +181,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                             Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     });
+        } else{
+            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
 
        // saveData(imguri);
@@ -179,7 +192,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Selectan Image"), PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select an Image"), PICK_IMAGE_REQUEST);
 
     }
 
@@ -188,12 +201,13 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data!= null && data.getData()!= null){
             imguri = data.getData();
-            try{
+            Picasso.get().load(imguri).into(imageView);
+            /*try{
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imguri);
                 imageView.setImageBitmap(bitmap);
             }catch(IOException e){
                 e.printStackTrace();
-            }
+            }*/
         }
     }
 

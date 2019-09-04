@@ -21,8 +21,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/resultRecycle"
-        android:layout_below="@+id/searchView" />
+        android:id="@+id/resultRecycle"/>
 
 </RelativeLayout>
 </ScrollView>

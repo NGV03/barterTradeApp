@@ -10,6 +10,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,7 +22,7 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
     ListActivity listActivity;
     List<Model> modelList;
     Context context;
-
+    FirebaseAuth firebaseAuth;
     public CustomAdapter(ListActivity listActivity, List<Model> modelList) {
         this.listActivity = listActivity;
         this.modelList = modelList;
