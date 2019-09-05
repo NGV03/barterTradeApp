@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,17 +17,22 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
+public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> implements Filterable {
 
     ListActivity listActivity;
     List<Model> modelList;
+    //copy of list for search
+    List<Model> modelListFull;
     Context context;
     FirebaseAuth firebaseAuth;
     public CustomAdapter(ListActivity listActivity, List<Model> modelList) {
         this.listActivity = listActivity;
         this.modelList = modelList;
+        //copy list for modelList for search
+        modelListFull = new ArrayList<>(modelList);
 
     }
 
@@ -73,4 +80,45 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
     public int getItemCount() {
         return modelList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return modelFilter;
+    }
+
+    private Filter modelFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Model> filteredList = new ArrayList<>();
+
+            //check if search input field empty
+            if(constraint == null || constraint.length() == 0){
+                filteredList.addAll(modelListFull);
+            }else{
+                //if something typed in  the search view
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Model m : modelListFull){
+                    if(m.getTitle().toLowerCase().contains(filterPattern)){
+                        filteredList.add(m);
+                    } else if (m.getLocation().toLowerCase().contains(filterPattern)){
+                        filteredList.add(m);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            //returns filtered arraylist
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            modelList.clear();
+            modelList.addAll((List) results.values);
+            //notify adapter to refresh list
+            notifyDataSetChanged();
+
+        }
+    };
 }

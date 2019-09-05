@@ -239,6 +239,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         String eLocation = location.getText().toString();
         String eUrl = imguri.toString();
         userid = FirebaseAuth.getInstance().getUid();
+        Log.i("Notification", "userid saved");
         getCate();
         data.put("Img", eUrl);
         data.put("Title", eTitle);

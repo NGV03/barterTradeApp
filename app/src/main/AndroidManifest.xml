@@ -21,19 +21,22 @@
         <activity android:name=".DeatiledItemActivity" />
 
         <activity android:name=".UploadActivity" />
-        <activity android:name=".ListActivity">
+        <activity android:name=".ListActivity"
+                  android:label="">
 
         </activity>
 
         <activity android:name=".Home" >
+
+
+        </activity>
+        <activity android:name=".RegistrationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-        </activity>
-        <activity android:name=".RegistrationActivity">
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".SplashActivity">
