@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">barterTrade</string>
     <string name="places_api_key">AIzaSyCZgSbItM1qQPWb9Ax8Io4sOsc_NgaLZvs</string>
+    <string name="photo">photo</string>
+    <string name="contacts">Contacts</string>
+    <string name="logout">Logout</string>
+    <string name="btn_chat">Send</string>
+    <string name="message">Type message</string>
 </resources>

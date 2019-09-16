@@ -100,6 +100,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+
+
     private void setupPlaceAutoComplete() {
         placesFragment = (AutocompleteSupportFragment)getSupportFragmentManager()
             .findFragmentById(R.id.autocomplete_fragment);

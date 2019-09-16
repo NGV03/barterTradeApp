@@ -47,6 +47,26 @@
                 android:textSize="15sp"
                 android:textColor="#a9a9a9"
                 android:id="@+id/tLocation" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:textSize="15sp"
+                android:textColor="#a9a9a9"
+                android:id="@+id/tCategory"
+                android:visibility="invisible"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:textSize="15sp"
+                android:textColor="#a9a9a9"
+                android:id="@+id/tShortDec"
+                android:visibility="invisible"/>
 
         </LinearLayout>
     </LinearLayout>

@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -39,6 +40,7 @@ public class ListActivity extends AppCompatActivity {
     FirebaseFirestore db;
     CustomAdapter adapter;
     ImageView imageView;
+
 
     @Override
     protected  void onCreate (Bundle savedInstanceState){
@@ -75,7 +77,9 @@ public class ListActivity extends AppCompatActivity {
                             Model model = new Model(doc.getString("id"),
                                     doc.getString("Title"),
                                     doc.getString("Location"),
-                                    doc.getString("Img")
+                                    doc.getString("Img"),
+                                    doc.getString("Short Description"),
+                                      doc.getString("Category")
                             );
 
 
@@ -99,7 +103,7 @@ public class ListActivity extends AppCompatActivity {
                     }
                 });
     }
-
+    //search
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //inflate our own menu
