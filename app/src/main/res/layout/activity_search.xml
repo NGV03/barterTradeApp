@@ -3,26 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    tools:context=".ListActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <SearchView
-        android:id="@+id/searchView"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="#E8E8E8"
-        android:queryHint="Search"/>
+        android:id="@+id/resultRecycle"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/resultRecycle"
-        android:layout_below="@+id/searchView"
-        >
-
-    </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>
 </ScrollView>

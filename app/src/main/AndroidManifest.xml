@@ -15,26 +15,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NotificationActivity"></activity>
-        <activity android:name=".DeatiledItemActivity" />
-        <activity android:name=".searchActivity" />
+        <activity android:name=".ChatActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ContactsActivity" />
+        </activity>
+        <activity
+            android:name=".ContactsActivity"
+            android:label="@string/contacts">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ContactsActivity" />
+        </activity>
+        <activity android:name=".MessagesActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".NotificationActivity" />
+        <activity android:name=".DetailItemActivity" />
         <activity android:name=".UploadActivity" />
+        <activity
+            android:name=".ListActivity"
+            android:label="" />
         <activity android:name=".Home" />
-        <activity android:name=".RegistrationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".RegistrationActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".SplashActivity" />
     </application>
 
 </manifest>

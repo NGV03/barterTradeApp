@@ -35,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void btnUserLogin(View v){
 
-
         (firebaseAuth.signInWithEmailAndPassword(txtEmail.getText().toString(), txtPassword.getText().toString()))
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -45,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "LoginActivity successful", Toast.LENGTH_LONG).show();
                             Intent i = new Intent(LoginActivity.this, Home.class);
                             startActivity(i);
+
                         }else{
                             Log.e("ERROR", task.getException().toString());
                             Toast.makeText(LoginActivity.this, task.getException().getMessage() , Toast.LENGTH_LONG).show();

@@ -37,8 +37,12 @@ public class Home extends AppCompatActivity  {
                             startActivity(j);
                             break;
                         case R.id.nav_notification:
-                            Intent k = new Intent(Home.this,  NotificationActivity.class);
+                            Intent k = new Intent(Home.this,  MessagesActivity.class);
                             startActivity(k);
+                        case R.id.action_search:
+                            Intent l = new Intent(Home.this,  ListActivity.class);
+                            startActivity(l);
+
                             break;
                     }
                     getIntent();
@@ -52,7 +56,7 @@ public class Home extends AppCompatActivity  {
         startActivity(i);
     }
     public void goSearch(View view) {
-        Intent i = new Intent(Home.this, searchActivity.class);
+        Intent i = new Intent(Home.this, ListActivity.class);
         startActivity(i);
     }
 }

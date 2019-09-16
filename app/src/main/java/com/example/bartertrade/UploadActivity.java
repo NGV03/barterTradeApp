@@ -3,7 +3,11 @@ package com.example.bartertrade;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -26,6 +30,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -38,6 +43,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.sql.Ref;
@@ -45,6 +51,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class UploadActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -61,6 +68,10 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     AutocompleteSupportFragment placesFragment;
 
 
+    //notification
+    NotificationCompat.Builder notification;
+    private static final int uniqueID  = 12345;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +80,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         db = FirebaseFirestore.getInstance();
 
         //initializing Storagereference
-        mStorageRef = FirebaseStorage.getInstance().getReference();
+        mStorageRef = FirebaseStorage.getInstance().getReference("Uploads");
+
         btnSave = (Button) findViewById(R.id.button_save);
         btnUpload = (Button) findViewById(R.id.button_upload);
         imageView = (ImageView) findViewById(R.id.iv_1);
@@ -82,9 +94,13 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         initPlaces();
         setupPlaceAutoComplete();
 
-
+        //notifcation
+        notification = new NotificationCompat.Builder(this,"default");
+        notification.setAutoCancel(false);
 
     }
+
+
 
     private void setupPlaceAutoComplete() {
         placesFragment = (AutocompleteSupportFragment)getSupportFragmentManager()
@@ -118,13 +134,36 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
         } else if(v == btnSave){
             // upload file to firebase storage
+            notification.setSmallIcon(R.drawable.logo);
+            notification.setTicker("Title");
+            notification.setWhen(System.currentTimeMillis());
+            notification.setContentTitle("MATA");
+            notification.setContentText("Item uploaded  successfully");
+
+            Intent i = new Intent(this, Home.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this,0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+            notification.setContentIntent(pendingIntent);
+
+            NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            nm.notify(uniqueID, notification.build());
+            Log.i("Noti","Notification test");
             Fileuploader();
+
+
         }
+    }
+
+    //to get image file extension
+    private String getFileExtension(Uri uri){
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(uri));
     }
 
     private  void Fileuploader(){
         if(imguri != null ) {
-            StorageReference ref = mStorageRef.child("Item/item.jpg");
+
+            StorageReference ref = mStorageRef.child(System.currentTimeMillis()+ "." +getFileExtension(imguri));
             Toast.makeText(UploadActivity.this, "Upload in progress", Toast.LENGTH_LONG).show();
 
             ref.putFile(imguri)
@@ -132,6 +171,10 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Toast.makeText(UploadActivity.this, "Image uploaded successfully!", Toast.LENGTH_LONG).show();
+                            Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+                            while (!urlTask.isSuccessful());
+                            Uri downloadUrl = urlTask.getResult();
+                            saveData(downloadUrl);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -140,15 +183,18 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                             Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     });
+        } else{
+            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
-        saveData(imguri);
+
+       // saveData(imguri);
     }
 
     private void Filechooser(){
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Selectan Image"), PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select an Image"), PICK_IMAGE_REQUEST);
 
     }
 
@@ -156,13 +202,14 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data!= null && data.getData()!= null){
-            imguri = data. getData();
-            try{
+            imguri = data.getData();
+            Picasso.get().load(imguri).into(imageView);
+            /*try{
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imguri);
                 imageView.setImageBitmap(bitmap);
             }catch(IOException e){
                 e.printStackTrace();
-            }
+            }*/
         }
     }
 
@@ -194,6 +241,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         String eLocation = location.getText().toString();
         String eUrl = imguri.toString();
         userid = FirebaseAuth.getInstance().getUid();
+        Log.i("Notification", "userid saved");
         getCate();
         data.put("Img", eUrl);
         data.put("Title", eTitle);
@@ -209,4 +257,8 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
+    public void goHome(View view) {
+
+
+    }
 }

@@ -1,12 +1,8 @@
 package com.example.bartertrade;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 
-import com.google.firebase.firestore.IgnoreExtraProperties;
 
-@IgnoreExtraProperties
-public class Item implements Parcelable{
+public class Item {
     private String title;
     private String shortDesc;
     private String location;
@@ -27,26 +23,6 @@ public class Item implements Parcelable{
 
     }
 
-    protected Item(Parcel in){
-        title = in.readString();
-        shortDesc = in.readString();
-        location = in.readString();
-        url = in.readString();
-        cate = in.readString();
-        id = in.readString();
-    }
-
-    public static  final Creator<Item> CREATOR = new Creator<Item>() {
-        @Override
-        public Item createFromParcel(Parcel in) {
-            return new Item(in);
-        }
-
-        @Override
-        public Item[] newArray(int size) {
-            return new Item[size];
-        }
-    };
 
     public String getTitle() {
         return title;
@@ -96,19 +72,5 @@ public class Item implements Parcelable{
         this.id = id;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(title);
-        parcel.writeString(shortDesc);
-        parcel.writeString(location);
-        parcel.writeString(url);
-        parcel.writeString(cate);
-        parcel.writeString(id);
-
-    }
 }
