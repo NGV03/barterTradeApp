@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +38,7 @@ public class MessagesActivity extends AppCompatActivity {
 
         RecyclerView rv = findViewById(R.id.recycler_contact);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        
+
         adapter = new GroupAdapter();
         rv.setAdapter(adapter);
 
@@ -77,6 +78,7 @@ public class MessagesActivity extends AppCompatActivity {
                                     Contact contact = doc.getDocument().toObject(Contact.class);
 
                                     adapter.add(new ContactItem(contact));
+
                                 }
                             }
 
@@ -84,6 +86,7 @@ public class MessagesActivity extends AppCompatActivity {
 
                     }
                 });
+
     }
 
     private void verifyAuthentication() {

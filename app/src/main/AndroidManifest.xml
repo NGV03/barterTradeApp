@@ -28,11 +28,7 @@
                 android:value=".ContactsActivity" />
         </activity>
         <activity android:name=".MessagesActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".NotificationActivity" />
         <activity android:name=".DetailItemActivity" />
@@ -42,7 +38,12 @@
             android:label="" />
         <activity android:name=".Home" />
         <activity android:name=".RegistrationActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+         </intent-filter>
+        </activity>
         <activity android:name=".SplashActivity" />
     </application>
 

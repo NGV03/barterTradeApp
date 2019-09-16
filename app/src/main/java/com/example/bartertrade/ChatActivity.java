@@ -58,9 +58,11 @@ public class ChatActivity extends AppCompatActivity {
                 sendMessage();
             }
         });
+
         adapter = new GroupAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
 
         FirebaseFirestore.getInstance().collection("/users")
                 .document(FirebaseAuth.getInstance().getUid())
@@ -83,7 +85,7 @@ public class ChatActivity extends AppCompatActivity {
             FirebaseFirestore.getInstance().collection("/conversations")
                     .document(fromId)
                     .collection(toId)
-                    .orderBy("timestamp", Query.Direction.ASCENDING)
+                    .orderBy("timeStamp", Query.Direction.ASCENDING)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -91,13 +93,10 @@ public class ChatActivity extends AppCompatActivity {
 
                                     if(documentChanges != null){
                                         for(DocumentChange doc : documentChanges){
+                                            Log.d("Testing for chat", String.valueOf(doc));
                                             if (doc.getType() == DocumentChange.Type.ADDED){
                                                 Message message = doc.getDocument().toObject(Message.class);
                                                 adapter.add(new MessageItem(message));
-
-                                                adapter = new GroupAdapter();
-
-
                                             }
                                         }
 

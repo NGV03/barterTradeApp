@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="TextView"
+        android:textStyle="bold"
+        android:textSize="25dp"
         android:paddingLeft="20dp"
         tools:layout_editor_absoluteX="77dp"
         tools:layout_editor_absoluteY="44dp" />
@@ -24,4 +26,5 @@
         android:layout_margin="10dp"
         android:paddingLeft="20dp"
         android:text="TextView" />
+
 </LinearLayout>
