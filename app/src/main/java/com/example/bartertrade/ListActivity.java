@@ -129,6 +129,10 @@ public class ListActivity extends AppCompatActivity implements SearchView.OnQuer
         for(Model m: modelList){
             if(m.getTitle().toLowerCase().contains(userInput)){
                 newList.add(m);
+            } else if (m.getLocation().toLowerCase().contains(userInput)){
+                newList.add(m);
+            } else if (m.shortDec.toLowerCase().contains(userInput)){
+                newList.add(m);
             }
         }
         adapter.updateList(newList);
