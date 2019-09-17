@@ -7,13 +7,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ViewHolderSearch extends RecyclerView.ViewHolder {
+public class ViewHolder extends RecyclerView.ViewHolder {
 
     public TextView mTitle, mLocation, mShortDesc, mCategory;
     public ImageView mUrl;
     public View mView;
 
-    public ViewHolderSearch(@NonNull View itemView) {
+    public ViewHolder(@NonNull View itemView) {
         super(itemView);
 
         mView = itemView;
@@ -43,18 +43,15 @@ public class ViewHolderSearch extends RecyclerView.ViewHolder {
         mShortDesc = itemView.findViewById(R.id.tShortDec);
         mCategory = itemView.findViewById(R.id.tCategory);
 
-
     }
-
-
-    private ViewHolderSearch.ClickListener mClickListener;
+    private ViewHolder.ClickListener mClickListener;
 
     //interface to send callbacks
     public interface ClickListener{
         void onItemClick(View view, int position);
         void onItemLongClick(View view, int position);
     }
-    public void setOnClickListener(ViewHolderSearch.ClickListener clickListener){
+    public void setOnClickListener(ViewHolder.ClickListener clickListener){
         mClickListener = clickListener;
 
     }

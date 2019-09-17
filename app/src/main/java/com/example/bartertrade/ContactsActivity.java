@@ -67,6 +67,7 @@ public class ContactsActivity extends AppCompatActivity {
                             return;
                         }
                         List<DocumentSnapshot> docs = queryDocumentSnapshots.getDocuments();
+                        adapter.clear();
                         for (DocumentSnapshot doc : docs){
                             User user = doc.toObject(User.class);
                             String uid = FirebaseAuth.getInstance().getUid();

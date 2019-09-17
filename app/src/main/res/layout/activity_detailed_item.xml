@@ -114,6 +114,17 @@
 
     </androidx.cardview.widget.CardView>
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="10dp">
+
+    </androidx.cardview.widget.CardView>
+
+
     <Button
         android:id="@+id/btnExchange"
         android:layout_width="wrap_content"

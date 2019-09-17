@@ -86,8 +86,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         btnUpload = (Button) findViewById(R.id.button_upload);
         imageView = (ImageView) findViewById(R.id.iv_1);
 
-
-
         btnSave.setOnClickListener(this);
         btnUpload.setOnClickListener(this);
 
@@ -99,9 +97,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         notification.setAutoCancel(false);
 
     }
-
-
-
     private void setupPlaceAutoComplete() {
         placesFragment = (AutocompleteSupportFragment)getSupportFragmentManager()
             .findFragmentById(R.id.autocomplete_fragment);
@@ -146,7 +141,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
             NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             nm.notify(uniqueID, notification.build());
-            Log.i("Noti","Notification test");
             Fileuploader();
 
 
@@ -164,7 +158,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         if(imguri != null ) {
 
             StorageReference ref = mStorageRef.child(System.currentTimeMillis()+ "." +getFileExtension(imguri));
-            Toast.makeText(UploadActivity.this, "Upload in progress", Toast.LENGTH_LONG).show();
 
             ref.putFile(imguri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -175,6 +168,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                             while (!urlTask.isSuccessful());
                             Uri downloadUrl = urlTask.getResult();
                             saveData(downloadUrl);
+                            //Toast.makeText(UploadActivity.this, "Upload in progress", Toast.LENGTH_LONG).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -187,7 +181,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
 
-       // saveData(imguri);
     }
 
     private void Filechooser(){
@@ -204,12 +197,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data!= null && data.getData()!= null){
             imguri = data.getData();
             Picasso.get().load(imguri).into(imageView);
-            /*try{
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imguri);
-                imageView.setImageBitmap(bitmap);
-            }catch(IOException e){
-                e.printStackTrace();
-            }*/
+
         }
     }
 
@@ -236,12 +224,14 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         EditText title = findViewById(R.id.etv_1);
         EditText shortDesc = findViewById(R.id.etv_2);
         TextView location = findViewById(R.id.etv_3);
+
         String eTitle = title.getText().toString();
         String eShortDesc = shortDesc.getText().toString();
         String eLocation = location.getText().toString();
         String eUrl = imguri.toString();
         userid = FirebaseAuth.getInstance().getUid();
-        Log.i("Notification", "userid saved");
+
+
         getCate();
         data.put("Img", eUrl);
         data.put("Title", eTitle);
@@ -249,11 +239,22 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         data.put("Short Description", eShortDesc);
         data.put("Category", cate   );
         data.put("id", userid);
-        db.collection("Item").add(data);
-        Toast.makeText(this, "Successfully saved your item", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(this, Home.class);
-        startActivity(i);
 
+        if(eTitle.isEmpty()){
+            Toast.makeText(this, "Please enter Title", Toast.LENGTH_SHORT).show();
+        }else if(eShortDesc.isEmpty()){
+            Toast.makeText(this, "Please enter Short description", Toast.LENGTH_LONG).show();
+        }else if(eLocation.isEmpty()){
+            Toast.makeText(this, "Please enter Location", Toast.LENGTH_SHORT).show();
+        }else if(eUrl.isEmpty()){
+            Toast.makeText(this, "Please choose an Image", Toast.LENGTH_SHORT).show();
+        }else {
+
+            db.collection("Item").add(data);
+            Toast.makeText(this, "Successfully saved your item", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, Home.class);
+            startActivity(i);
+        }
     }
 
 

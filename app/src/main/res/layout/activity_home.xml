@@ -12,7 +12,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
@@ -23,9 +23,10 @@
             android:src="@drawable/logoround" />
 
         <LinearLayout
-            android:layout_width="260dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:background="#E8E8E8">
 
             <ImageView
@@ -35,7 +36,7 @@
                 android:src="@drawable/search" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Search Mata"
@@ -43,13 +44,7 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="55dp"
-            android:layout_marginVertical="14dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/filter" />
+
 
     </LinearLayout>
 

@@ -39,14 +39,13 @@ public class Home extends AppCompatActivity  {
                         case R.id.nav_notification:
                             Intent k = new Intent(Home.this,  MessagesActivity.class);
                             startActivity(k);
+                            break;
                         case R.id.action_search:
                             Intent l = new Intent(Home.this,  ListActivity.class);
                             startActivity(l);
-
                             break;
                     }
                     getIntent();
-
                     return true;
                 }
             };

@@ -47,7 +47,6 @@ public class RegistrationActivity extends AppCompatActivity {
         txtEmail = findViewById(R.id.et2);
         txtPhone = findViewById(R.id.et3);
         txtPassword = findViewById(R.id.et4);
-        mImgPhoto = findViewById(R.id.img_photo);
         firebaseAuth = FirebaseAuth.getInstance();
 
     }

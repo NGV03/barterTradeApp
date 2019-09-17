@@ -27,24 +27,39 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ContactsActivity" />
         </activity>
-        <activity android:name=".MessagesActivity">
+        <activity android:name=".MessagesActivity"
+            android:label="Messages">
 
         </activity>
-        <activity android:name=".NotificationActivity" />
-        <activity android:name=".DetailItemActivity" />
-        <activity android:name=".UploadActivity" />
+        <activity android:name=".DetailItemActivity"
+            android:label=""/>
+        <activity android:name=".UploadActivity"
+            android:label=""
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".ListActivity"
             android:label="" />
-        <activity android:name=".Home" />
-        <activity android:name=".RegistrationActivity" />
-        <activity android:name=".LoginActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-         </intent-filter>
+        <activity android:name=".Home"
+            android:label=""/>
+        <activity android:name=".RegistrationActivity"
+            android:label=""
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".LoginActivity"
+            android:label=""
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
         </activity>
-        <activity android:name=".SplashActivity" />
+        <activity android:name=".SplashActivity"
+            android:label=""
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
     </application>
+
+
 
 </manifest>
