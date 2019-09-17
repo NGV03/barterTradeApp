@@ -147,7 +147,6 @@ public class ChatActivity extends AppCompatActivity {
                                     .set(contact);
 
 
-
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -172,12 +171,12 @@ public class ChatActivity extends AppCompatActivity {
                             contact.setTimeStamp(message.getTimeStamp());
                             contact.setLastMessage(message.getText());
 
-
                             FirebaseFirestore.getInstance().collection("/last-messages")
                                     .document(toId)
                                     .collection("contacts")
                                     .document(fromId)
                                     .set(contact);
+
 
                         }
                     })

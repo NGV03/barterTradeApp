@@ -19,6 +19,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_margin="5dp"
+            android:onClick="goNotification"
             android:src="@drawable/logoround" />
 
         <LinearLayout

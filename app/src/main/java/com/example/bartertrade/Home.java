@@ -59,4 +59,9 @@ public class Home extends AppCompatActivity  {
         Intent i = new Intent(Home.this, ListActivity.class);
         startActivity(i);
     }
+
+    public void goNotification(View view) {
+        Intent i = new Intent(Home.this, NotificationActivity.class);
+        startActivity(i);
+    }
 }
