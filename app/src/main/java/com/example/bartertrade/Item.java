@@ -1,7 +1,5 @@
 package com.example.bartertrade;
 
-
-
 public class Item {
     private String title;
     private String shortDesc;

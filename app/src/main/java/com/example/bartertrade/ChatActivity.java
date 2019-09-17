@@ -146,10 +146,11 @@ public class ChatActivity extends AppCompatActivity {
                                     .document(toId)
                                     .set(contact);
 
-
-
                         }
                     })
+
+
+
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {

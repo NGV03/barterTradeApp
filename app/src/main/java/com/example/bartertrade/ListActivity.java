@@ -29,7 +29,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     List<Model> modelList = new ArrayList<>();
     RecyclerView mRecyclerView;
@@ -106,27 +106,32 @@ public class ListActivity extends AppCompatActivity {
     //search
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //inflate our own menu
-        MenuInflater inflater  = getMenuInflater();
-        inflater.inflate(R.menu.bottom_navigation, menu);
 
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView  searchView = (SearchView) searchItem.getActionView();
+        getMenuInflater().inflate(R.menu.bottom_navigation, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(this);
 
-        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        return true;
+    }
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+
+        String userInput = newText.toLowerCase();
+        List<Model> newList =  new ArrayList<>();
+
+        for(Model m: modelList){
+            if(m.getTitle().toLowerCase().contains(userInput)){
+                newList.add(m);
             }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return false;
-            }
-        });
+        }
+        adapter.updateList(newList);
         return true;
     }
 }

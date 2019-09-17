@@ -5,25 +5,28 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.StorageReference;
+import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
 
 public class DetailItemActivity extends AppCompatActivity {
-    TextView mTitle, mShortDesc, mLocation, mCategory;
+    TextView mTitle;
+    TextView mShortDesc;
+    TextView mLocation;
+    TextView mCategory;
+    TextView mName ;
     ImageView mImage;
     Button mExchange;
 
     public FirebaseFirestore db;
-    FirebaseUser user;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +64,7 @@ public class DetailItemActivity extends AppCompatActivity {
 
         //get data from firebase
         db = FirebaseFirestore.getInstance();
+
 
 
         //set data to views

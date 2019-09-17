@@ -41,21 +41,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-<!--
-        <Button
-            android:id="@+id/button_selectImg"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="30dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/btn_selectpic"
-            android:text="@string/photo"
-            android:textColor="#ffffff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -147,11 +132,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:inputType="textPassword"
             android:layout_alignParentRight="true" />
 
     </RelativeLayout>
-
-
 
     <Button
         android:id="@+id/btnRegistrationUser"

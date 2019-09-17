@@ -9,6 +9,7 @@ public class User implements Parcelable {
     private String email;
     private String phone;
     private String token;
+    private boolean online;
 
     public User(){
 
@@ -28,6 +29,7 @@ public class User implements Parcelable {
         email = in.readString();
         phone = in.readString();
         token = in.readString();
+        online = in.readInt() == 1;
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -62,6 +64,11 @@ public class User implements Parcelable {
         return token;
     }
 
+    public boolean isOnline() {
+        return online;
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -73,6 +80,7 @@ public class User implements Parcelable {
         dest.writeString(name);
         dest.writeString(email);
         dest.writeString(token);
+        dest.writeInt(online ? 1 : 0);
         dest.writeString(phone);
     }
 }
