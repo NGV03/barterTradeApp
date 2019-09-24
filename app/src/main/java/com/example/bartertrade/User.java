@@ -9,12 +9,12 @@ public class User implements Parcelable {
     private String email;
     private String phone;
     private String token;
+    private int loginCount;
     private boolean online;
 
     public User(){
 
     }
-
 
     public User(String userid, String name, String email, String phone) {
         this.userid = userid;
@@ -30,6 +30,7 @@ public class User implements Parcelable {
         phone = in.readString();
         token = in.readString();
         online = in.readInt() == 1;
+        loginCount = in.readInt();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -54,6 +55,14 @@ public class User implements Parcelable {
 
     public String getEmail() {
         return email;
+    }
+
+    public int getLoginCount() {
+        return loginCount;
+    }
+
+    public void setLoginCount(int loginCount) {
+        this.loginCount = loginCount;
     }
 
     public String getPhone() {
@@ -81,6 +90,7 @@ public class User implements Parcelable {
         dest.writeString(email);
         dest.writeString(token);
         dest.writeInt(online ? 1 : 0);
+        dest.writeInt(loginCount);
         dest.writeString(phone);
     }
 }

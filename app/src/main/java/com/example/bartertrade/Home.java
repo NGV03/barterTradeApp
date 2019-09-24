@@ -2,7 +2,6 @@ package com.example.bartertrade;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -62,5 +61,16 @@ public class Home extends AppCompatActivity  {
     public void goNotification(View view) {
         Intent i = new Intent(Home.this, NotificationActivity.class);
         startActivity(i);
+    }
+
+    public void queryOne(View view) {
+        Intent i = new Intent(Home.this, MostActiveUsersQueryActivity.class);
+        startActivity(i);
+
+    }
+    public void queryTwo(View view) {
+        Intent i = new Intent(Home.this, MostListedItemQuery.class);
+        startActivity(i);
+
     }
 }

@@ -17,16 +17,20 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -38,7 +42,10 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.core.UserWriteRecord;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -60,9 +67,11 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri imguri;
     private String cate;
+    private String cateId;
     private  String userid;
     private Button btnSave, btnUpload;
     private ImageView imageView;
+    private RadioGroup radioGroup;
     PlacesClient placesClient;
     List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.ADDRESS);
     AutocompleteSupportFragment placesFragment;
@@ -91,6 +100,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
         initPlaces();
         setupPlaceAutoComplete();
+        initCategories();
 
         //notifcation
         notification = new NotificationCompat.Builder(this,"default");
@@ -113,7 +123,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(UploadActivity.this, ""+ status.getStatusMessage(),Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private void initPlaces() {
@@ -142,8 +151,6 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             nm.notify(uniqueID, notification.build());
             Fileuploader();
-
-
         }
     }
 
@@ -200,25 +207,43 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
         }
     }
+    private void initCategories(){
+        db.collection("categories").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    RadioGroup ll = new RadioGroup(UploadActivity.this);
+                    ll.setOrientation(LinearLayout.VERTICAL);
 
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        // Log.d(TAG, document.getId() + " => " + document.getData());
+                        RadioButton rdbtn = new RadioButton(UploadActivity.this);
+                        rdbtn.setId(View.generateViewId());
+                        rdbtn.setTag(document.getId());
+                        rdbtn.setText(document.getString("name"));
+                        ll.addView(rdbtn);
+                        ll.setOnCheckedChangeListener(checkedCategoryListener);
+                    }
+                    ((ViewGroup) findViewById(R.id.radioGroup)).addView(ll);
+                } else {
 
-    private void getCate(){
-        RadioButton vehicles = findViewById(R.id.vehicles);
-        RadioButton furniture = findViewById(R.id.furniture);
-        RadioButton electronics = findViewById(R.id.electronics);
-        RadioButton clothing = findViewById(R.id.clothing);
-        if (vehicles.isChecked()){
-            cate = "Vehicles";
-        }else if (furniture.isChecked()){
-            cate = "Furniture";
-        }else if (electronics.isChecked()){
-            cate = "Electronics";
-        }else if (clothing.isChecked()){
-            cate = "Clothing";
-        }else {
-            Toast.makeText(this, "Please select a category", Toast.LENGTH_SHORT).show();
-        }
+                }
+            }
+        });
     }
+
+    private RadioGroup.OnCheckedChangeListener checkedCategoryListener = new RadioGroup.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            if (group.findViewById(checkedId) != null) {
+                RadioButton selectedCategory = ((RadioButton) group.findViewById(checkedId));
+
+                cate = selectedCategory.getText().toString();
+                cateId = selectedCategory.getTag().toString();
+            }
+        }
+    };
+
     private void saveData(Uri imguri) {
         Map<String, String> data = new HashMap<>();
         EditText title = findViewById(R.id.etv_1);
@@ -231,13 +256,12 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         String eUrl = imguri.toString();
         userid = FirebaseAuth.getInstance().getUid();
 
-
-        getCate();
         data.put("Img", eUrl);
         data.put("Title", eTitle);
         data.put("Location", eLocation);
         data.put("Short Description", eShortDesc);
-        data.put("Category", cate   );
+        data.put("Category", cate);
+        data.put("CategoryId", cateId);
         data.put("id", userid);
 
         if(eTitle.isEmpty()){

@@ -15,6 +15,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,16 +30,29 @@ public class LoginActivity extends AppCompatActivity {
     private EditText txtPassword;
     private FirebaseAuth firebaseAuth;
     private ProgressBar viewProgressBar;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        db = FirebaseFirestore.getInstance();
         txtEmail = findViewById(R.id.et2);
         txtPassword = findViewById(R.id.et4);
         firebaseAuth = FirebaseAuth.getInstance();
 
+    }
+
+    public void addCount(){
+        //increase login count by 1 every time user logins
+        String user = firebaseAuth.getInstance().getUid();
+
+        if (user != null) {
+            db.collection("users").document(user).update("loginCount", FieldValue.increment(1));
+        }
     }
     public void btnUserLogin(View v){
 
@@ -42,8 +63,12 @@ public class LoginActivity extends AppCompatActivity {
 
                         if(task.isSuccessful()){
                             Toast.makeText(LoginActivity.this, "LoginActivity successful", Toast.LENGTH_LONG).show();
+                            addCount();
                             Intent i = new Intent(LoginActivity.this, Home.class);
                             startActivity(i);
+
+
+
 
                         }else{
                             Log.e("ERROR", task.getException().toString());

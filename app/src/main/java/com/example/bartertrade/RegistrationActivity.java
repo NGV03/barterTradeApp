@@ -89,7 +89,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             FirebaseFirestore.getInstance().collection("users")
                                     .document(uid)
                                     .set(user)
-                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Intent i = new Intent (RegistrationActivity.this, LoginActivity.class);
